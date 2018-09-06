@@ -13,3 +13,4 @@ This repository contains the excercises of the udemy course:
  * Methods
     * Basic property
     * Property with parameters
+    * Property and objects
