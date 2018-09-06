@@ -9,4 +9,7 @@ This repository contains the excercises of the udemy course:
  * Template
     * Expression
     * If
-    
+    * Function
+ * Methods
+    * Basic property
+    * Property with parameters
