@@ -49,13 +49,13 @@ new Vue({
             }
         ]
     },
-    filters: {
-        currency: function (value) {
-            return Intl.NumberFormat('it-IT', {
-                style: 'currency',
-                currency: 'EUR',
-                minimumFractionDigits: 0,
-            }).format(value)
+    computed: {
+        cartTotal: function () {
+            let total = 0;
+            this.cart.items.forEach(function (item) {
+                total += item.quantity * item.product.price;
+            });
+            return total
         }
     },
     methods: {
@@ -67,5 +67,14 @@ new Vue({
 
             product.inStock--;
         }
-    }
+    },
+    filters: {
+        currency: function (value) {
+            return Intl.NumberFormat('it-IT', {
+                style: 'currency',
+                currency: 'EUR',
+                minimumFractionDigits: 0,
+            }).format(value)
+        }
+    },
 });
