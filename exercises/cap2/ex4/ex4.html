@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+    <div id="app">
+        <!-- EXERCISE 1: Add a computed property which returns an array of strings
+        with the movie name followed by the release year in parenthesis.
+        Then output these strings as an ordered list. -->
+        <ol>
+            <li v-for="f in formattedMovies">{{ f }}</li>
+        </ol>
+
+        <!-- EXERCISE 2: Make the button below add a movie of your choice to the
+        "movies" data property. Then add a watcher which outputs the movie that
+        was just added in an alert dialog. -->
+        <button v-on:click="addMovies">Add Movie</button>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                movies: [
+                    { name: 'The Matrix', year: 1999 },
+                    { name: 'The Matrix Reloaded', year: 2003 },
+                    { name: 'The Matrix Revolutions', year: 2003 }
+                ]
+            },
+            methods:{
+              addMovies: function (movie) {
+                  this.movies.push({
+                      name: 'foo',
+                      year: 1450
+                  })
+              }
+            },
+            computed: {
+                formattedMovies: function () {
+                    let films = []
+                    for (let film of this.movies){
+                        films.push(film.name + ' ' + film.year)
+                    }
+                    return films
+                }
+            },
+            watch: {
+                movies: function (movies) {
+                    alert(movies[movies.length - 1].name + ' just added!')
+                }
+            }
+        });
+    </script>
+</body>
+</html>
