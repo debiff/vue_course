@@ -15,7 +15,7 @@
                 <a href="#"><strong>E-commerce Inc.</strong></a>
 
                 <div class="text-right pull-right cart-info">
-                    <span class="stats">X items in cart, totalling $Y</span>
+                    <span class="stats">{{ cart.items.length }} items in cart, totalling $Y</span>
                     <button class="btn btn-primary">View Cart</button>
                 </div>
             </nav>
@@ -40,7 +40,10 @@
                                     none: product.inStock == 0 }">
                                         {{ product.inStock}} in stock
                                     </div>
-                                    <button class="btn btn-success" :disabled="product.inStock == 0">Add to cart</button>
+                                    <button class="btn btn-success"
+                                            :disabled="product.inStock == 0"
+                                            @click="addProductToCart(product)"
+                                    >Add to cart</button>
                                 </div>
                             </div>
                         </div>
