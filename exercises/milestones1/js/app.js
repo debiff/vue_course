@@ -60,16 +60,57 @@ new Vue({
         },
         taxAmount: function () {
             return this.cartTotal * 0.1
+        },
+        cartItems: function () {
+            let total = 0;
+            this.cart.items.forEach(function (item) {
+                total += item.quantity;
+            });
+            return total
         }
     },
     methods: {
         addProductToCart: function (product) {
-            this.cart.items.push({
-                product: product,
-                quantity: 1
-            });
+            let itemInCart = this.getCartItem(product);
 
+            if (itemInCart != null){
+                itemInCart.quantity++;
+            }else{
+                this.cart.items.push({
+                    product: product,
+                    quantity: 1
+                });
+            }
             product.inStock--;
+        },
+        getCartItem: function (product) {
+            for (let i = 0; i < this.cart.items.length; i++){
+                if (this.cart.items[i].product.id === product.id){
+                    return this.cart.items[i];
+                }
+            }
+            return null
+        },
+        increaseQuantity: function (item) {
+            item.product.inStock--;
+            item.quantity++;
+        },
+        decreseQuantity: function (item) {
+            item.product.inStock++;
+            item.quantity--;
+            if(item.quantity == 0){
+                this.removeCartItem(item);
+            }
+        },
+        removeCartItem: function (cartItem) {
+            this.cart.items = this.cart.items.filter(function(item) {
+                return item !== cartItem
+            })
+        },
+        checkout: function () {
+            if(confirm('Are you sure that you want to purchase these products?')){
+                this.cart.items = [];
+            }
         }
     },
     filters: {
